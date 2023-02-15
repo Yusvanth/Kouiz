@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class HomeController {
 
     @Autowired
@@ -37,6 +38,10 @@ public class HomeController {
     @PostMapping("/sign-up")
     public ResponseEntity<Object> signUp(@RequestBody SignupDTO signupDTO){
 
+        User user = userService.findByEmail(signupDTO.getEmail());
+        if(user!=null){
+            return ResponseHandler.generateResponse("user already signed up",HttpStatus.BAD_GATEWAY);
+        }
         if(userService.saveUser(signupDTO))
             return ResponseHandler.generateResponse("User signed up !", HttpStatus.OK);
         else

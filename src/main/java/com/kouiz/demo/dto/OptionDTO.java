@@ -4,7 +4,7 @@ public class OptionDTO {
 
     private String name;
 
-    private Boolean isCorrect;
+    private boolean isCorrect;
 
     public String getName() {
         return name;
